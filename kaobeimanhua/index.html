@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>拷贝漫画网页版网址 - 漫画分类与更新入口</title>
+  <meta name="description" content="拷贝漫画网页版网址提供漫画分类索引、热门条目推荐、更新动态与深度解析。适合漫画读者查找悬疑、古装、恋爱等类型作品，了解阅读顺序与评判标准。">
+  <meta name="keywords" content="漫画分类索引, 在线漫画阅读, 悬疑漫画推荐, 古装漫画更新, 漫画阅读顺序">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%232b2b3c'/%3E%3Ctext x='50' y='68' font-size='56' text-anchor='middle' fill='%23f5c542' font-family='Arial'%3E漫%3C/text%3E%3C/svg%3E">
+  <style>
+    /* --- 基础系统 --- */
+    :root {
+      --bg: #f7f5f0;
+      --surface: #ffffff;
+      --surface-alt: #f0ede6;
+      --ink: #1e1e2a;
+      --ink-secondary: #4a4a5e;
+      --ink-muted: #7a7a8e;
+      --brand: #2b2b3c;
+      --brand-light: #3f3f55;
+      --accent: #d44a4a;
+      --accent-soft: #fce9e9;
+      --gold: #b8860b;
+      --gold-soft: #fdf3e0;
+      --border: #dcd8d0;
+      --border-light: #e8e4dd;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --font-serif: "Noto Serif SC", "Songti SC", Georgia, serif;
+      --sticky-offset: 96px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--sticky-offset);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* --- 吸顶公告 + 页头 --- */
+    .sticky-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .announcement-bar {
+      background: var(--brand);
+      color: #f5f0e8;
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 0.875rem;
+      letter-spacing: 0.02em;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .announcement-bar a {
+      color: var(--gold);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .site-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      height: 60px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--brand);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f5c542;
+      font-size: 20px;
+      font-weight: 700;
+      font-family: var(--font-serif);
+    }
+
+    .logo-text {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--brand);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+
+    .main-nav {
+      display: flex;
+      gap: 4px;
+      flex: 1;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .main-nav::-webkit-scrollbar { display: none; }
+
+    .main-nav a {
+      display: block;
+      padding: 6px 12px;
+      font-size: 0.875rem;
+      color: var(--ink-secondary);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .main-nav a:hover,
+    .main-nav a:focus-visible {
+      background: var(--surface-alt);
+      color: var(--brand);
+      outline: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--surface-alt);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      padding: 0 4px 0 14px;
+      height: 36px;
+      width: 200px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-box:focus-within {
+      border-color: var(--brand-light);
+      box-shadow: 0 0 0 2px rgba(43,43,60,0.12);
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      font-size: 0.85rem;
+      color: var(--ink);
+      width: 100%;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .search-box input::placeholder { color: var(--ink-muted); }
+
+    .search-box button {
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      height: 28px;
+      padding: 0 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+    .search-box button:hover { background: var(--brand-light); }
+
+    /* --- 主布局 --- */
+    .page-container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 24px 24px 48px;
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr) 280px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* --- 左频道索引 --- */
+    .channel-index {
+      position: sticky;
+      top: calc(var(--sticky-offset) + 16px);
+    }
+
+    .channel-index h3 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .channel-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .channel-list a {
+      display: block;
+      padding: 7px 12px;
+      font-size: 0.875rem;
+      color: var(--ink-secondary);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s, color 0.15s;
+      border-left: 3px solid transparent;
+    }
+
+    .channel-list a:hover,
+    .channel-list a:focus-visible {
+      background: var(--surface-alt);
+      color: var(--brand);
+      border-left-color: var(--accent);
+      outline: none;
+    }
+
+    /* --- 主内容区 --- */
+    .main-content {
+      min-width: 0;
+    }
+
+    /* 首屏 */
+    .hero {
+      background: var(--brand);
+      background-image: radial-gradient(ellipse at 80% 20%, rgba(245,197,66,0.12) 0%, transparent 60%);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      color: #f5f0e8;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: -40px;
+      bottom: -60px;
+      width: 220px;
+      height: 220px;
+      border: 2px solid rgba(245,197,66,0.15);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      line-height: 1.3;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #d0cbc2;
+      max-width: 640px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--brand);
+      padding: 9px 22px;
+      border-radius: 24px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .btn-primary:hover { background: #d4a020; transform: translateY(-1px); }
+
+    .btn-outline {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #f5f0e8;
+      padding: 9px 22px;
+      border-radius: 24px;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .btn-outline:hover { border-color: #f5f0e8; background: rgba(255,255,255,0.08); }
+
+    /* 通用板块 */
+    .section-block {
+      margin-bottom: 36px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .section-header h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+    }
+
+    .section-header h2::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 18px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-right: 10px;
+      vertical-align: text-bottom;
+    }
+
+    .section-more {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      text-decoration: none;
+    }
+    .section-more:hover { color: var(--accent); }
+
+    /* 主题概览 */
+    .overview-text {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--ink-secondary);
+    }
+
+    .overview-text p { margin-bottom: 12px; }
+    .overview-text p:last-child { margin-bottom: 0; }
+
+    /* 精选卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .card-img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      background: var(--surface-alt);
+    }
+
+    .card-body {
+      padding: 14px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: var(--surface-alt);
+      color: var(--ink-secondary);
+      white-space: nowrap;
+    }
+
+    .tag-accent {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .tag-gold {
+      background: var(--gold-soft);
+      color: var(--gold);
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 10px;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      border-top: 1px solid var(--border-light);
+      padding-top: 8px;
+    }
+
+    .card-meta strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* 更新动态列表 */
+    .update-list {
+      list-style: none;
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .update-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border-light);
+      transition: background 0.15s;
+    }
+
+    .update-list li:last-child { border-bottom: none; }
+    .update-list li:hover { background: var(--surface-alt); }
+
+    .update-time {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      white-space: nowrap;
+      min-width: 70px;
+      padding-top: 2px;
+    }
+
+    .update-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .update-summary {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      line-height: 1.5;
+    }
+
+    /* 分类入口 */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .category-item {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 18px 16px;
+      text-decoration: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      display: block;
+    }
+
+    .category-item:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .category-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .category-count {
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+    }
+
+    /* 深度解析 */
+    .deep-dive {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 28px 32px;
+    }
+
+    .deep-dive h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 24px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .deep-dive h3:first-child { margin-top: 0; }
+
+    .deep-dive p {
+      font-size: 0.92rem;
+      color: var(--ink-secondary);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .deep-dive ul {
+      margin: 8px 0 14px 20px;
+      font-size: 0.9rem;
+      color: var(--ink-secondary);
+      line-height: 1.8;
+    }
+
+    .deep-dive li { margin-bottom: 4px; }
+
+    /* 体验指南 */
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .guide-step {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      position: relative;
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: var(--brand);
+      color: var(--gold);
+      border-radius: 50%;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .guide-step h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+
+    .guide-step p {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+
+    /* FAQ */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .faq-item summary {
+      padding: 14px 20px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.15s;
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+
+    .faq-item summary::before {
+      content: '+';
+      font-size: 1.1rem;
+      color: var(--accent);
+      font-weight: 400;
+      width: 18px;
+      flex-shrink: 0;
+    }
+
+    .faq-item[open] summary::before { content: '−'; }
+
+    .faq-item summary:hover { background: var(--surface-alt); }
+
+    .faq-answer {
+      padding: 0 20px 16px 46px;
+      font-size: 0.88rem;
+      color: var(--ink-secondary);
+      line-height: 1.75;
+    }
+
+    /* 用户评论 */
+    .comment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .comment-card {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+    }
+
+    .comment-user {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--brand);
+      margin-bottom: 4px;
+    }
+
+    .comment-text {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+
+    .comment-text em {
+      font-style: normal;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* 相关资讯 */
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .news-item {
+      display: flex;
+      gap: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      align-items: flex-start;
+      transition: box-shadow 0.15s;
+    }
+
+    .news-item:hover { box-shadow: var(--shadow-sm); }
+
+    .news-date {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      white-space: nowrap;
+      min-width: 76px;
+      padding-top: 2px;
+    }
+
+    .news-content h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .news-content p {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+
+    /* 相关推荐标签索引 */
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag-cloud a {
+      display: inline-block;
+      padding: 6px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      font-size: 0.82rem;
+      color: var(--ink-secondary);
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .tag-cloud a:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* 热门榜单 */
+    .ranking-list {
+      list-style: none;
+      counter-reset: rank;
+    }
+
+    .ranking-list li {
+      counter-increment: rank;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 10px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      margin-bottom: 6px;
+      font-size: 0.88rem;
+    }
+
+    .ranking-list li::before {
+      content: counter(rank);
+      font-weight: 700;
+      color: var(--ink-muted);
+      font-size: 0.8rem;
+      min-width: 18px;
+    }
+
+    .ranking-list li:nth-child(-n+3)::before {
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    .ranking-list .rank-title {
+      font-weight: 600;
+      color: var(--ink);
+      flex: 1;
+    }
+
+    .ranking-list .rank-meta {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      white-space: nowrap;
+    }
+
+    /* --- 右侧辅助栏 --- */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--sticky-offset) + 16px);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sidebar-panel {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+    }
+
+    .sidebar-panel h3 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .sidebar-update {
+      list-style: none;
+      font-size: 0.8rem;
+    }
+
+    .sidebar-update li {
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--ink-secondary);
+      line-height: 1.5;
+    }
+
+    .sidebar-update li:last-child { border-bottom: none; }
+
+    .sidebar-update .su-time {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--ink-muted);
+      margin-top: 2px;
+    }
+
+    .sidebar-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .sidebar-tags a {
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      background: var(--surface-alt);
+      border-radius: 12px;
+      color: var(--ink-secondary);
+      text-decoration: none;
+    }
+
+    .sidebar-tags a:hover { background: var(--accent-soft); color: var(--accent); }
+
+    /* --- 页尾 --- */
+    .site-footer {
+      background: var(--brand);
+      color: #b0aa9e;
+      margin-top: 24px;
+    }
+
+    .footer-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 40px 24px 24px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 28px;
+    }
+
+    .footer-brand .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .footer-brand .footer-logo span {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #f5f0e8;
+    }
+
+    .footer-brand p {
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: #8a857a;
+    }
+
+    .footer-col h4 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #f5f0e8;
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 6px; }
+
+    .footer-col a {
+      font-size: 0.8rem;
+      color: #8a857a;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-col a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: #6a655a;
+    }
+
+    /* 搜索无结果提示 */
+    .search-empty {
+      display: none;
+      padding: 12px 20px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .search-empty.visible { display: block; }
+
+    /* 隐藏卡片 */
+    .card.hidden { display: none; }
+
+    /* --- 响应式 --- */
+    @media (max-width: 1200px) {
+      .page-container {
+        grid-template-columns: 160px minmax(0, 1fr) 250px;
+        gap: 20px;
+      }
+      .category-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 1024px) {
+      .page-container {
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 24px;
+      }
+      .channel-index {
+        position: static;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--border-light);
+      }
+      .channel-index h3 { display: none; }
+      .channel-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+      .channel-list a {
+        border-left: none;
+        padding: 5px 12px;
+        border-radius: 16px;
+        background: var(--surface);
+        border: 1px solid var(--border-light);
+      }
+      .channel-list a:hover { border-left-color: transparent; }
+      .sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 740px) {
+      .header-inner {
+        padding: 0 12px;
+        height: auto;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+      .main-nav { order: 3; flex-basis: 100%; overflow-x: auto; }
+      .search-box { width: 140px; }
+      .hero { padding: 24px 20px; }
+      .hero h1 { font-size: 1.5rem; }
+      .hero-desc { font-size: 0.88rem; }
+      .card-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); }
+      .guide-steps { grid-template-columns: 1fr; }
+      .comment-grid { grid-template-columns: 1fr; }
+      .sidebar { grid-template-columns: 1fr; }
+      .deep-dive { padding: 20px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+      .news-item { flex-direction: column; gap: 6px; }
+      .update-list li { flex-direction: column; gap: 4px; }
+      .update-time { min-width: unset; }
+      .section-header h2 { font-size: 1.05rem; }
+    }
+
+    @media (max-width: 400px) {
+      .card-grid { grid-template-columns: 1fr; }
+      .category-grid { grid-template-columns: 1fr; }
+      .search-box { width: 110px; }
+      .logo-text { font-size: 0.95rem; }
+    }
+  </style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+  <!-- 吸顶公告 + 页头 -->
+  <div class="sticky-wrap">
+    <div class="announcement-bar">
+      本周新增 36 部漫画条目 · 《深海异常信号》第 8 话已更新 · <a href="#latest-update">查看全部更新</a>
+    </div>
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="/#hero" class="logo-area" aria-label="拷贝漫画网页版网址 首页">
+          <span class="logo-icon" aria-hidden="true">漫</span>
+          <span class="logo-text">拷贝漫画网页版网址</span>
+        </a>
+        <nav class="main-nav" aria-label="主题导航">
+          <a href="#overview">领域概览</a>
+          <a href="#featured">精选推荐</a>
+          <a href="#latest-update">更新动态</a>
+          <a href="#category">分类入口</a>
+          <a href="#deep-dive">深度解析</a>
+          <a href="#guide">阅读路径</a>
+          <a href="#faq">常见问答</a>
+          <a href="#comments">读者评论</a>
+          <a href="#news">资讯</a>
+          <a href="#ranking">热门榜单</a>
+        </nav>
+        <div class="header-actions">
+          <div class="search-box" role="search">
+            <input type="search" id="searchInput" placeholder="搜索条目名或类型" aria-label="搜索漫画条目">
+            <button type="button" id="searchBtn">搜索</button>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <!-- 主内容 -->
+  <main class="page-container" id="main-content">
+
+    <!-- 左侧频道索引 -->
+    <aside class="channel-index" aria-label="频道索引">
+      <h3>频道索引</h3>
+      <ul class="channel-list">
+        <li><a href="#overview">领域概览</a></li>
+        <li><a href="#featured">精选推荐</a></li>
+        <li><a href="#latest-update">更新动态</a></li>
+        <li><a href="#category">分类入口</a></li>
+        <li><a href="#deep-dive">深度解析</a></li>
+        <li><a href="#guide">阅读路径</a></li>
+        <li><a href="#faq">常见问答</a></li>
+        <li><a href="#comments">读者评论</a></li>
+        <li><a href="#news">相关资讯</a></li>
+        <li><a href="#recommend">相关推荐</a></li>
+        <li><a href="#ranking">热门榜单</a></li>
+      </ul>
+    </aside>
+
+    <!-- 中栏主内容 -->
+    <div class="main-content">
+
+      <!-- 首屏 -->
+      <section class="hero" id="hero">
+        <h1>拷贝漫画网页版网址</h1>
+        <p class="hero-desc">
+          汇聚悬疑、古装、恋爱、科幻、热血等类型漫画的条目索引与更新动态。提供《深海异常信号》《长安夜行录》《恋爱方程式》等具体作品介绍、分类筛选与阅读顺序参考，适合按类型查找漫画的读者。
+        </p>
+        <div class="hero-actions">
+          <a href="#featured" class="btn-primary">浏览精选条目</a>
+          <a href="#latest-update" class="btn-outline">查看今日更新</a>
+        </div>
+      </section>
+
+      <!-- 搜索无结果提示 -->
+      <div class="search-empty" id="searchEmpty" role="status">
+        没有找到匹配的漫画条目，请尝试其他关键词。
+      </div>
+
+      <!-- 1. 主题领域概览 -->
+      <section class="section-block" id="overview">
+        <div class="section-header">
+          <h2>漫画领域概览</h2>
+        </div>
+        <div class="overview-text">
+          <p>漫画作为一种以连续画面叙事的内容形式，涵盖悬疑推理、古装传奇、现代恋爱、科幻冒险、热血战斗、日常治愈等多个方向。悬疑类侧重案件线索与反转节奏，古装类注重世界观与人物关系铺陈，恋爱类关注情感推进的细腻度，科幻类则依赖设定自洽与想象力的平衡。不同方向对更新频率、单话篇幅和画面信息密度的要求各不相同。</p>
+          <p>当前受到关注的条目包括悬疑向的《深海异常信号》《第七档案室》，古装向的《长安夜行录》《山河故人传》，恋爱向的《恋爱方程式》《夏季限定》，以及科幻向的《轨道之外》《记忆碎片》等。这些作品在叙事节奏、画风取向和更新稳定性上各有特点。读者在选择时通常会先看类型标签与简介，再参考更新话数与读者讨论焦点，判断是否适合自己持续追更。</p>
+          <p>漫画的消费节奏与阅读顺序也有讲究。短篇条目适合集中阅读，长篇连载则需要关注更新周期和单话信息量。同一类型内不同作品的比较维度包括：主线推进速度、人物塑造深度、画面分镜清晰度、对话与旁白的比例，以及每话结尾的悬念设置方式。了解这些维度有助于读者在大量条目中快速定位符合自己偏好的作品。</p>
+        </div>
+      </section>
+
+      <!-- 2. 精选内容推荐 -->
+      <section class="section-block" id="featured">
+        <div class="section-header">
+          <h2>精选漫画条目</h2>
+          <a href="/#featured" class="section-more">查看全部 →</a>
+        </div>
+        <div class="card-grid" id="cardGrid">
+          <!-- 卡片通过 JS 动态渲染，但核心内容直接存在于 HTML 中以保证无 JS 可读 -->
+          <article class="card" data-title="深海异常信号 悬疑">
+            <img class="card-img" src="https://picsum.photos/seed/shenhai-xinhao01/400/300" alt="深海异常信号漫画封面" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <h3 class="card-title">深海异常信号</h3>
+              <div class="card-tags">
+                <span class="tag tag-accent">悬疑</span>
+                <span class="tag">心理惊悚</span>
+                <span class="tag">海洋</span>
+              </div>
+              <p class="card-desc">深海科考站收到来源不明的规律信号，信号内容与二十年前失踪的勘探队录音高度相似。故事以封闭空间和信号解码推进，每话结尾留一个线索缺口。</p>
+              <div class="card-meta">
+                <span>更新至第 8 话</span>
+                <span><strong>9.2</strong> 分</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" data-title="长安夜行录 古装">
+            <img class="card-img" src="https://picsum.photos/seed/changan-yexing02/400/300" alt="长安夜行录漫画封面" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <h3 class="card-title">长安夜行录</h3>
+              <div class="card-tags">
+                <span class="tag tag-accent">古装</span>
+                <span class="tag">探案</span>
+                <span class="tag">唐朝</span>
+              </div>
+              <p class="card-desc">以唐代长安城为背景的单元探案故事，主角为夜巡武侯，每三话解决一桩案件。案件涉及坊市制度、宵禁规则和西域商队，细节考据扎实。</p>
+              <div class="card-meta">
+                <span>已完结 42 话</span>
+                <span><strong>9.0</strong> 分</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" data-title="恋爱方程式 恋爱">
+            <img class="card-img" src="https://picsum.photos/seed/lianai-fangcheng03/400/300" alt="恋爱方程式漫画封面" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <h3 class="card-title">恋爱方程式</h3>
+              <div class="card-tags">
+                <span class="tag tag-accent">恋爱</span>
+                <span class="tag">校园</span>
+                <span class="tag">数学社</span>
+              </div>
+              <p class="card-desc">数学社两名成员用公式推导恋爱策略，从概率论到博弈论轮番上阵，结果每次计算都与实际情况相反。轻喜剧节奏，单话一个完整小事件。</p>
+              <div class="card-meta">
+                <span>更新至第 22 话</span>
+                <span><strong>8.7</strong> 分</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" data-title="第七档案室 悬疑">
+            <img class="card-img" src="https://picsum.photos/seed/diqidangan04/400/300" alt="第七档案室漫画封面" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <h3 class="card-title">第七档案室</h3>
+              <div class="card-tags">
+                <span class="tag tag-accent">悬疑</span>
+                <span class="tag">刑侦</span>
+                <span class="tag">档案</span>
+              </div>
+              <p class="card-desc">以公安档案室为舞台的冷案重启故事，主角通过旧档案中的矛盾点还原真相。每卷聚焦一个年份的悬案，时间线交错但标注清晰。</p>
+              <div class="card-meta">
+                <span>更新至第 15 话</span>
+                <span><strong>9.1</strong> 分</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" data-title="轨道之外 科幻">
+            <img class="card-img" src="https://picsum.photos/seed/guidao-zhiwai05/400/300" alt="轨道之外漫画封面" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <h3 class="card-title">轨道之外</h3>
+              <div class="card-tags">
+                <span class="tag tag-accent">科幻</span>
+                <span class="tag">太空</span>
+                <span class="tag">硬设定</span>
+              </div>
+              <p class="card-desc">近地轨道空间站失联后，地面救援队发现站内时间流速异常。作品对轨道力学和空间站结构有较细致的设定，悬念围绕时间差展开。</p>
+              <div class="card-meta">
+                <span>更新至第 10 话</span>
+                <span><strong>8.9</strong> 分</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" data-title="山河故人传 古装">
+            <img class="card-img" src="https://picsum.photos/seed/shanhe-guren06/400/300" alt="山河故人传漫画封面" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <h3 class="card-title">山河故人传</h3>
+              <div class="card-tags">
+                <span class="tag tag-accent">古装</span>
+                <span class="tag">武侠</span>
+                <span class="tag">群像</span>
+              </div>
+              <p class="card-desc">以宋末乱世为背景的群像武侠，主线围绕一支失踪的镖队展开，多线叙事在第三卷汇合。人物关系图复杂但每话附有简要回顾。</p>
+              <div class="card-meta">
+                <span>更新至第 30 话</span>
+                <span><strong>8.8</strong> 分</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" data-title="记忆碎片 科幻">
+            <img class="card-img" src="https://picsum.photos/seed/jiyi-suipian07/400/300" alt="记忆碎片漫画封面" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <h3 class="card-title">记忆碎片</h3>
+              <div class="card-tags">
+                <span class="tag tag-accent">科幻</span>
+                <span class="tag">记忆</span>
+                <span class="tag">悬疑</span>
+              </div>
+              <p class="card-desc">主角每次醒来都会丢失前一天记忆，只能依靠自己留下的笔记拼凑真相。分镜中大量使用手写笔记特写，阅读时需要留意细节。</p>
+              <div class="card-meta">
+                <span>更新至第 18 话</span>
+                <span><strong>9.3</strong> 分</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" data-title="夏季限定 恋爱">
+            <img class="card-img" src="https://picsum.photos/seed/xiaji-xianding08/400/300" alt="夏季限定漫画封面" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <h3 class="card-title">夏季限定</h3>
+              <div class="card-tags">
+                <span class="tag tag-accent">恋爱</span>
+                <span class="tag">治愈</span>
+                <span class="tag">海边</span>
+              </div>
+              <p class="card-desc">暑假打工期间相遇的两人约定只在夏天见面，秋天来临前必须做出选择。画面以高饱和度海景和日常对话为主，情感推进克制。</p>
+              <div class="card-meta">
+                <span>已完结 12 话</span>
+                <span><strong>8.6</strong> 分</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3. 最新更新动态 -->
+      <section class="section-block" id="latest-update">
+        <div class="section-header">
+          <h2>最新更新与动态</h2>
+          <span class="section-more">2026-11-08 更新</span>
+        </div>
+        <ul class="update-list">
+          <li>
+            <span class="update-time">今天 09:30</span>
+            <div>
+              <div class="update-title">《深海异常信号》第 8 话上线</div>
+              <div class="update-summary">信号源被锁定在海底热泉区，科考队下潜后发现第二组录音，内容指向站内成员。</div>
+            </div>
+          </li>
+          <li>
+            <span class="update-time">今天 08:15</span>
+            <div>
+              <div class="update-title">《恋爱方程式》第 22 话更新</div>
+              <div class="update-summary">数学社参加校际联赛，主角用概率模型预测对手策略，结果现场抽签打乱全部计划。</div>
+            </div>
+          </li>
+          <li>
+            <span class="update-time">昨天 21:10</span>
+            <div>
+              <div class="update-title">《第七档案室》第 15 话发布</div>
+              <div class="update-summary">1998 年悬案的关键证人档案被调出，笔录中的时间差成为突破口。</div>
+            </div>
+          </li>
+          <li>
+            <span class="update-time">昨天 19:45</span>
+            <div>
+              <div class="update-title">《轨道之外》第 10 话更新</div>
+              <div class="update-summary">地面救援队计算出空间站时间流速约为地面的 1.7 倍，对接窗口只剩四十分钟。</div>
+            </div>
+          </li>
+          <li>
+            <span class="update-time">11 月 6 日</span>
+            <div>
+              <div class="update-title">《长安夜行录》番外篇上线</div>
+              <div class="update-summary">以配角武侯为视角的独立短篇，补充了正文中未展开的西市案件细节。</div>
+            </div>
+          </li>
+          <li>
+            <span class="update-time">11 月 5 日</span>
+            <div>
+              <div class="update-title">《山河故人传》第 30 话发布</div>
+              <div class="update-summary">失踪镖队的路线图被拼出最后一段，指向一处不在官方驿道上的废弃渡口。</div>
+            </div>
+          </li>
+          <li>
+            <span class="update-time">11 月 4 日</span>
+            <div>
+              <div class="update-title">《记忆碎片》第 18 话更新</div>
+              <div class="update-summary">主角在笔记夹层中发现一张自己从未写过的小纸条，笔迹却与自己一致。</div>
+            </div>
+          </li>
+          <li>
+            <span class="update-time">11 月 3 日</span>
+            <div>
+              <div class="update-title">《夏季限定》单行本附录公开</div>
+              <div class="update-summary">收录完结后的后日谈短篇，以第三人称视角交代两人秋天之后的选择。</div>
+            </div>
+          </li>
+          <li>
+            <span class="update-time">11 月 2 日</span>
+            <div>
+              <div class="update-title">《深海异常信号》第 7 话回顾专题</div>
+              <div class="update-summary">整理前七话中所有信号频率数据，标注了三次频率突变的对应情节节点。</div>
+            </div>
+          </li>
+          <li>
+            <span class="update-time">11 月 1 日</span>
+            <div>
+              <div class="update-title">悬疑类条目月度更新统计</div>
+              <div class="update-summary">十月悬疑类新增条目 14 部，其中《第七档案室》与《深海异常信号》更新频率最高。</div>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 4. 分类入口 -->
+      <section class="section-block" id="category">
+        <div class="section-header">
+          <h2>漫画分类入口</h2>
+        </div>
+        <div class="category-grid">
+          <a href="/#featured" class="category-item">
+            <div class="category-name">悬疑</div>
+            <div class="category-count">48 部条目</div>
+          </a>
+          <a href="/#featured" class="category-item">
+            <div class="category-name">古装</div>
+            <div class="category-count">36 部条目</div>
+          </a>
+          <a href="/#featured" class="category-item">
+            <div class="category-name">恋爱</div>
+            <div class="category-count">52 部条目</div>
+          </a>
+          <a href="/#featured" class="category-item">
+            <div class="category-name">科幻</div>
+            <div class="category-count">29 部条目</div>
+          </a>
+          <a href="/#featured" class="category-item">
+            <div class="category-name">热血</div>
+            <div class="category-count">41 部条目</div>
+          </a>
+          <a href="/#featured" class="category-item">
+            <div class="category-name">日常治愈</div>
+            <div class="category-count">33 部条目</div>
+          </a>
+          <a href="/#featured" class="category-item">
+            <div class="category-name">武侠</div>
+            <div class="category-count">27 部条目</div>
+          </a>
+          <a href="/#featured" class="category-item">
+            <div class="category-name">心理惊悚</div>
+            <div class="category-count">19 部条目</div>
+          </a>
+        </div>
+      </section>
+
+      <!-- 5. 深度解析 -->
+      <section class="section-block" id="deep-dive">
+        <div class="section-header">
+          <h2>深度解析：类型差异与阅读判断</h2>
+        </div>
+        <div class="deep-dive">
+          <h3>悬疑漫画的线索密度与节奏控制</h3>
+          <p>悬疑类漫画的核心阅读体验来自线索的投放与回收。《深海异常信号》采用“每话一个新异常”的结构，单话内完成发现异常、提出假设、验证失败或成功的小循环，适合喜欢每话都有推进感的读者。《第七档案室》则不同，它用多话篇幅铺陈一个案件，线索分散在对话、档案截图和背景细节中，需要读者自行串联，阅读节奏偏慢但累积感更强。</p>
+          <p>判断一部悬疑漫画是否适合自己，可以先看前两话的信息密度：如果两话内已经出现至少三条可回看的线索，且每条线索都有明确的画面呈现，通常说明作者对节奏有规划；如果两话还在纯铺垫，则更适合有耐心的读者。另外留意每话结尾的悬念类型——是“新信息出现”还是“旧信息被推翻”，后者往往意味着更复杂的叙事结构。</p>
+
+          <h3>古装题材的世界观展开方式</h3>
+          <p>古装漫画的阅读门槛主要来自世界观信息量。《长安夜行录》选择用单元案件逐步展开长安城的坊市制度、宵禁规则和官僚体系，读者可以跟随案件自然吸收设定，不需要提前了解历史背景。《山河故人传》则采用群像多线叙事，第一卷就投放了大量人物和势力关系，适合习惯做笔记或反复回看的读者。</p>
+          <ul>
+            <li>单元结构：每卷/每三话一个完整事件，设定随事件展开，入门友好。</li>
+            <li>多线群像：主线与支线并行，人物关系图复杂，适合喜欢梳理脉络的读者。</li>
+            <li>历史架空：借真实朝代框架做架空演绎，需要读者对基本历史常识有了解。</li>
+          </ul>
+
+          <h3>恋爱漫画的情感推进与单话完整性</h3>
+          <p>恋爱类条目的差异主要体现在情感推进速度和单话事件的完整度上。《恋爱方程式》用喜剧方式处理情感，单话围绕一个数学概念展开，情感推进隐含在笑点中，适合轻松阅读。《夏季限定》则更注重氛围和对话留白，单话事件性较弱，但情感浓度更高。比较两者时，可以关注每话是否有明确的“情感变化节点”——哪怕是很小的变化，也能帮助判断作品是否在持续推进关系。</p>
+
+          <h3>科幻设定的自洽与阅读门槛</h3>
+          <p>科幻漫画的设定密度直接影响阅读体验。《轨道之外》对轨道力学和空间站结构的描写较为细致，但作者通过角色对话逐步交代设定，没有大段说明文字，读者可以跟随剧情理解。《记忆碎片》的记忆丢失设定则更依赖读者主动留意画面细节，笔记特写中的文字内容往往包含关键信息。选择科幻条目时，可以先翻看前几话中是否有独立的设定说明页或角色对话中的自然解释，以此判断自己是否愿意投入注意力去理解设定。</p>
+        </div>
+      </section>
+
+      <!-- 6. 体验指南 / 阅读路径 -->
+      <section class="section-block" id="guide">
+        <div class="section-header">
+          <h2>漫画阅读路径与判断参考</h2>
+        </div>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <span class="step-num">1</span>
+            <h4>先按类型缩小范围</h4>
+            <p>从悬疑、古装、恋爱、科幻等方向中选出当下想读的类型。如果不确定，可以从两个相邻类型各选一部短篇试读，比较阅读节奏和画面信息密度。</p>
+          </div>
+          <div class="guide-step">
+            <span class="step-num">2</span>
+            <h4>查看简介与更新状态</h4>
+            <p>简介中会标注主线类型和主要看点。更新状态分为连载中、已完结和番外更新，连载中条目建议先确认当前话数是否足够支撑一次完整阅读。</p>
+          </div>
+          <div class="guide-step">
+            <span class="step-num">3</span>
+            <h4>试读前两话判断节奏</h4>
+            <p>前两话通常能反映作品的叙事节奏和线索投放方式。如果两话内已经出现清晰的主线方向或情感变化，说明作品推进较快；反之则需要更多耐心。</p>
+          </div>
+          <div class="guide-step">
+            <span class="step-num">4</span>
+            <h4>比较同类型条目</h4>
+            <p>同类型内比较时，关注三个维度：单话信息量、每话结尾的悬念类型、人物关系复杂度。这三个维度基本决定了追更的投入程度和回看频率。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. FAQ -->
+      <section class="section-block" id="faq">
+        <div class="section-header">
+          <h2>常见问答</h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>悬疑类漫画一般多久更新一话？</summary>
+            <div class="faq-answer">
+              连载中的悬疑漫画常见更新周期为每周一话或每两周一话。《深海异常信号》目前保持每周更新，《第七档案室》为双周更新。更新频率通常会在条目页标注，追更前可以先确认节奏是否与自己的阅读习惯匹配。
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>《深海异常信号》和《第七档案室》有什么区别？</summary>
+            <div class="faq-answer">
+              两部都是悬疑类，但结构不同。《深海异常信号》是封闭空间内的连续叙事，单话推进一个异常点，线索回收较快；《第七档案室》是档案驱动的冷案重启，一个案件跨越多话，线索分散且需要读者自行串联。前者适合喜欢每话有推进感的读者，后者适合愿意细读和回看的读者。
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>第一次接触古装漫画，从哪部开始看比较好？</summary>
+            <div class="faq-answer">
+              如果对唐代背景感兴趣，可以从《长安夜行录》开始，它采用单元案件结构，设定随案件自然展开，入门门槛较低。如果更喜欢群像和宏大叙事，可以尝试《山河故人传》，但建议准备好人物关系梳理。两者在古装类型中分别代表单元结构和多线结构两种常见模式。
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>恋爱漫画的评判标准通常是什么？</summary>
+            <div class="faq-answer">
+              常见的评判维度包括：情感推进是否有清晰的节点、单话事件是否完整、对话与画面的比例是否均衡、配角是否对主线有实际推动。不同作品侧重点不同，《恋爱方程式》偏重单话喜剧结构的完整性，《夏季限定》偏重氛围和对话留白，读者可以根据自己更看重的维度来选择。
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>科幻漫画里的设定说明太多，读起来累怎么办？</summary>
+            <div class="faq-answer">
+              可以优先选择通过对话和剧情自然交代设定的作品，比如《轨道之外》将设定信息分散在角色讨论和操作流程中，没有大段说明页。如果某部作品设定密度较高，可以先读前两话判断自己是否愿意投入注意力，或者先看设定说明页再进入正文。
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>已完结的漫画和连载中的漫画，阅读体验差别大吗？</summary>
+            <div class="faq-answer">
+              已完结作品可以一次性读完，整体节奏感和伏笔回收的完整度更容易判断；连载中作品需要等待更新，单话的悬念感更强，但整体评价需要随着更新逐步形成。如果时间有限，已完结的短篇（如《夏季限定》12 话）适合集中阅读；如果喜欢追更和讨论，连载中的条目更合适。
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 8. 用户评论 -->
+      <section class="section-block" id="comments">
+        <div class="section-header">
+          <h2>读者评论</h2>
+        </div>
+        <div class="comment-grid">
+          <div class="comment-card">
+            <div class="comment-user">深海的鲸</div>
+            <div class="comment-text">《深海异常信号》第 8 话那个录音反转太狠了，前面明明有提示但我完全没注意到。准备从头再看一遍找线索。</div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">长安夜行人</div>
+            <div class="comment-text">《长安夜行录》的坊市细节做得很扎实，宵禁那段和史料对得上。单元结构读起来不累，适合睡前看一话。</div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">数学课代表</div>
+            <div class="comment-text">《恋爱方程式》最新话用抽签打乱概率模型，笑死。这漫画每次都在认真算然后被现实打脸。</div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">冷案档案员</div>
+            <div class="comment-text">《第七档案室》的节奏偏慢，但 1998 年那个案子线索铺得很细。建议一口气攒几话再看，单话追容易忘细节。</div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">轨道力学爱好者</div>
+            <div class="comment-text">《轨道之外》的时间流速设定虽然夸张，但对话里对轨道对接窗口的解释挺认真的，科幻部分不算糊弄。</div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">山河故人粉</div>
+            <div class="comment-text">《山河故人传》人物太多，我第三卷才开始记住谁是谁。不过渡口那段多线汇合写得很好，值得坚持。</div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">记忆碎片观察者</div>
+            <div class="comment-text">《记忆碎片》第 18 话那张小纸条，我翻回去看了第七话的笔记特写，笔迹确实对得上。作者埋线能力很强。</div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">夏日海边</div>
+            <div class="comment-text">《夏季限定》完结了有点舍不得。后日谈短篇把秋天之后的选择交代清楚，没有强行圆满，挺好的。</div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">悬疑入门者</div>
+            <div class="comment-text">刚开始看悬疑漫画，从《深海异常信号》入门的，单话推进快，不容易弃。准备下一部试《第七档案室》。</div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">古装考据党</div>
+            <div class="comment-text">《长安夜行录》的服饰和器具画得比较讲究，番外篇那段西市案件还补充了正文没展开的细节，诚意不错。</div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">轻喜剧爱好者</div>
+            <div class="comment-text">《恋爱方程式》属于不用动脑的快乐，每话一个数学梗，节奏轻快。适合通勤路上看，一话刚好。</div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">科幻新读者</div>
+            <div class="comment-text">《轨道之外》的设定比想象中好懂，作者没有一上来就扔术语，跟着角色操作流程走就能理解。</div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">追更中</div>
+            <div class="comment-text">同时追《深海异常信号》和《第七档案室》两部悬疑，一部快节奏一部慢热，正好互补。希望两部都别停更。</div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">平平无奇读者</div>
+            <div class="comment-text">《山河故人传》画面分镜有时候有点跳，需要回看才能接上。剧情本身不错，就是阅读时需要比较专注。</div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">笔记狂魔</div>
+            <div class="comment-text">看《记忆碎片》养成了记笔记的习惯，每话结束把出现的线索记下来，后面回看确实有用。</div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">完结撒花</div>
+            <div class="comment-text">《夏季限定》12 话刚刚好，不长不短。海边场景画得很舒服，情感克制但到位，推荐给喜欢日常治愈的。</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. 相关资讯 -->
+      <section class="section-block" id="news">
+        <div class="section-header">
+          <h2>相关资讯</h2>
+        </div>
+        <div class="news-list">
+          <div class="news-item">
+            <span class="news-date">2026-11-08</span>
+            <div class="news-content">
+              <h4>《深海异常信号》第 8 话更新，信号源锁定海底热泉区</h4>
+              <p>本话中科考队完成首次下潜，获取第二组录音。录音内容与站内成员声纹匹配，悬念进一步升级。</p>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-11-06</span>
+            <div class="news-content">
+              <h4>《长安夜行录》番外篇上线，补完西市案件细节</h4>
+              <p>番外以配角武侯为主视角，展开正文中一笔带过的西市走私案，并补充了唐代西市的管理规则。</p>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-11-05</span>
+            <div class="news-content">
+              <h4>十月悬疑类新增 14 部条目，双周更成为常见节奏</h4>
+              <p>统计显示，新上线的悬疑类条目中约六成采用双周更新，单话信息密度普遍提高，读者回看率相应上升。</p>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-11-03</span>
+            <div class="news-content">
+              <h4>《夏季限定》单行本附录公开后日谈短篇</h4>
+              <p>短篇以第三人称视角交代两人秋天之后的选择，延续了正文克制的情感描写风格，未做强行圆满处理。</p>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-11-01</span>
+            <div class="news-content">
+              <h4>古装漫画读者讨论焦点转向“设定展开方式”</h4>
+              <p>近期社区讨论中，单元结构与多线群像的入门门槛成为古装类条目的主要比较维度，读者更关注前期信息投放节奏。</p>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-10-28</span>
+            <div class="news-content">
+              <h4>《记忆碎片》单话线索整理帖在读者社区获高关注</h4>
+              <p>该帖逐话标注了笔记特写中的隐藏信息，帮助新读者理解作品的多层叙事结构，也引发了对画面细节的讨论。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. 相关推荐 -->
+      <section class="section-block" id="recommend">
+        <div class="section-header">
+          <h2>相关推荐方向</h2>
+        </div>
+        <div class="tag-cloud">
+          <a href="/#featured">封闭空间悬疑</a>
+          <a href="/#featured">唐代背景探案</a>
+          <a href="/#featured">数学社恋爱喜剧</a>
+          <a href="/#featured">冷案重启刑侦</a>
+          <a href="/#featured">空间站时间流速</a>
+          <a href="/#featured">宋末群像武侠</a>
+          <a href="/#featured">记忆丢失叙事</a>
+          <a href="/#featured">海边夏日治愈</a>
+        </div>
+      </section>
+
+      <!-- 11. 热门榜单 -->
+      <section class="section-block" id="ranking">
+        <div class="section-header">
+          <h2>本周热门榜单</h2>
+          <span class="section-more">截至 2026-11-08</span>
+        </div>
+        <ol class="ranking-list">
+          <li>
+            <span class="rank-title">深海异常信号</span>
+            <span class="rank-meta">悬疑 · 更新至第 8 话</span>
+          </li>
+          <li>
+            <span class="rank-title">记忆碎片</span>
+            <span class="rank-meta">科幻 · 更新至第 18 话</span>
+          </li>
+          <li>
+            <span class="rank-title">第七档案室</span>
+            <span class="rank-meta">悬疑 · 更新至第 15 话</span>
+          </li>
+          <li>
+            <span class="rank-title">长安夜行录</span>
+            <span class="rank-meta">古装 · 已完结 42 话</span>
+          </li>
+          <li>
+            <span class="rank-title">轨道之外</span>
+            <span class="rank-meta">科幻 · 更新至第 10 话</span>
+          </li>
+          <li>
+            <span class="rank-title">恋爱方程式</span>
+            <span class="rank-meta">恋爱 · 更新至第 22 话</span>
+          </li>
+          <li>
+            <span class="rank-title">山河故人传</span>
+            <span class="rank-meta">古装 · 更新至第 30 话</span>
+          </li>
+          <li>
+            <span class="rank-title">夏季限定</span>
+            <span class="rank-meta">恋爱 · 已完结 12 话</span>
+          </li>
+        </ol>
+      </section>
+
+    </div>
+
+    <!-- 右侧辅助栏 -->
+    <aside class="sidebar" aria-label="辅助信息">
+      <div class="sidebar-panel">
+        <h3>今日更新速览</h3>
+        <ul class="sidebar-update">
+          <li>深海异常信号 第 8 话<span class="su-time">今天 09:30</span></li>
+          <li>恋爱方程式 第 22 话<span class="su-time">今天 08:15</span></li>
+          <li>第七档案室 第 15 话<span class="su-time">昨天 21:10</span></li>
+          <li>轨道之外 第 10 话<span class="su-time">昨天 19:45</span></li>
+          <li>长安夜行录 番外篇<span class="su-time">11 月 6 日</span></li>
+        </ul>
+      </div>
+      <div class="sidebar-panel">
+        <h3>热门标签</h3>
+        <div class="sidebar-tags">
+          <a href="/#featured">悬疑</a>
+          <a href="/#featured">古装</a>
+          <a href="/#featured">恋爱</a>
+          <a href="/#featured">科幻</a>
+          <a href="/#featured">单元探案</a>
+          <a href="/#featured">群像武侠</a>
+          <a href="/#featured">时间流速</a>
+          <a href="/#featured">记忆丢失</a>
+          <a href="/#featured">海边治愈</a>
+          <a href="/#featured">数学社</a>
+        </div>
+      </div>
+      <div class="sidebar-panel">
+        <h3>分类速览</h3>
+        <ul class="sidebar-update">
+          <li>悬疑 · 48 部条目</li>
+          <li>古装 · 36 部条目</li>
+          <li>恋爱 · 52 部条目</li>
+          <li>科幻 · 29 部条目</li>
+          <li>热血 · 41 部条目</li>
+        </ul>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- 页尾 -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="logo-icon" aria-hidden="true" style="width:32px;height:32px;font-size:17px;">漫</span>
+            <span>拷贝漫画网页版网址</span>
+          </div>
+          <p>汇聚悬疑、古装、恋爱、科幻等类型漫画的条目索引与更新动态，提供分类查找、阅读顺序参考与条目比较维度。</p>
+        </div>
+        <div class="footer-col">
+          <h4>内容分类</h4>
+          <ul>
+            <li><a href="#featured">悬疑漫画</a></li>
+            <li><a href="#featured">古装漫画</a></li>
+            <li><a href="#featured">恋爱漫画</a></li>
+            <li><a href="#featured">科幻漫画</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>阅读参考</h4>
+          <ul>
+            <li><a href="#guide">阅读路径</a></li>
+            <li><a href="#deep-dive">深度解析</a></li>
+            <li><a href="#faq">常见问答</a></li>
+            <li><a href="#ranking">热门榜单</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>动态与评论</h4>
+          <ul>
+            <li><a href="#latest-update">更新动态</a></li>
+            <li><a href="#news">相关资讯</a></li>
+            <li><a href="#comments">读者评论</a></li>
+            <li><a href="#recommend">相关推荐</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 拷贝漫画网页版网址 · 内容聚合展示</span>
+        <span>部分内容为示例数据，仅用于展示页面结构</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // 搜索筛选功能（针对精选卡片）
+      var searchInput = document.getElementById('searchInput');
+      var searchBtn = document.getElementById('searchBtn');
+      var searchEmpty = document.getElementById('searchEmpty');
+      var cards = document.querySelectorAll('.card');
+
+      function performSearch() {
+        var query = (searchInput.value || '').trim().toLowerCase();
+        var visibleCount = 0;
+
+        cards.forEach(function(card) {
+          var title = (card.getAttribute('data-title') || '').toLowerCase();
+          var titleEl = card.querySelector('.card-title');
+          var titleText = titleEl ? titleEl.textContent.toLowerCase() : '';
+          var tags = card.querySelectorAll('.tag');
+          var tagText = '';
+          tags.forEach(function(t) { tagText += ' ' + t.textContent.toLowerCase(); });
+
+          var match = !query || title.indexOf(query) !== -1 || titleText.indexOf(query) !== -1 || tagText.indexOf(query) !== -1;
+
+          if (match) {
+            card.classList.remove('hidden');
+            visibleCount++;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        if (visibleCount === 0 && query !== '') {
+          searchEmpty.classList.add('visible');
+        } else {
+          searchEmpty.classList.remove('visible');
+        }
+      }
+
+      if (searchBtn) {
+        searchBtn.addEventListener('click', performSearch);
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            performSearch();
+          }
+        });
+        searchInput.addEventListener('input', function() {
+          if (searchInput.value.trim() === '') {
+            searchEmpty.classList.remove('visible');
+            cards.forEach(function(card) { card.classList.remove('hidden'); });
+          }
+        });
+      }
+
+      // 键盘焦点可见性（原生支持，无需额外处理）
+    })();
+  </script>
+</body>
+                                      </html>
